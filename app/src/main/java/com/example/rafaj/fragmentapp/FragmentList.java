@@ -6,6 +6,8 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,19 @@ import android.widget.Toast;
  */
 
 public class FragmentList extends ListFragment implements AdapterView.OnItemClickListener{
-
+    private Planet planet[] =  new Planet[9];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        planet[0] = new Planet("Sun",R.drawable.sun);
+        planet[1] = new Planet("Mercury",R.drawable.mercury);
+        planet[2] = new Planet("Venus",R.drawable.venus);
+        planet[3] = new Planet("Earth",R.drawable.earth);
+        planet[4] = new Planet("Mars",R.drawable.mars);
+        planet[5] = new Planet("Jupiter",R.drawable.jupiter);
+        planet[6] = new Planet("Saturn",R.drawable.saturn);
+        planet[7] = new Planet("Uranus",R.drawable.uranus);
+        planet[8] = new Planet("Neptune",R.drawable.neptune);
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         return view;
     }
@@ -44,14 +55,13 @@ public class FragmentList extends ListFragment implements AdapterView.OnItemClic
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             Intent newIntent = new Intent(getActivity().getApplicationContext(), Main2Activity.class);
             newIntent.setAction(Intent.ACTION_SEND);
-            newIntent.setType("text/plain");
-            newIntent.putExtra(Intent.EXTRA_TEXT, adapterView.getItemAtPosition(i).toString());
+            newIntent.putExtra("PLANET",planet[i]);
             startActivity(newIntent);
         }else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             Toast.makeText(getActivity(), "Item: " + adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
 
             Bundle bundle = new Bundle();
-            bundle.putString("KEY", adapterView.getItemAtPosition(i).toString());
+            bundle.putParcelable("KEY",planet[i] );
             FragmentViewer frag = new FragmentViewer();
             frag.setArguments(bundle);
 

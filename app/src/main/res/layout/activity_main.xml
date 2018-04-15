@@ -13,9 +13,6 @@
         android:name="com.example.rafaj.fragmentapp.FragmentList"
         android:id="@+id/list">
 
-
-
-
     </fragment>
 
 
